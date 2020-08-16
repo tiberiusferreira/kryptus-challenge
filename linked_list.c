@@ -173,3 +173,17 @@ struct LLNode* ll_sort(struct LLNode **linked_list){
     return sorted_linked_list;
 }
 
+// TODO need to double check
+void ll_free(struct LLNode **linked_list){
+    if (linked_list == 0){
+        return;
+    }
+    struct LLNode * node = *linked_list;
+    // for all valid nodes
+    for(; (int) node != 0 ;){
+        struct LLNode* to_be_freed = node;
+        node = node->next;
+        free(to_be_freed);
+    }
+    *linked_list = 0;
+}

@@ -70,9 +70,9 @@ int main() {
 			printf("Leaving. Good bye.\n");
 			break;
 		} else if (strncmp(input, "sort\n", 5) == 0){
-		    // we are LEAKING memory here
-		    // TODO FIX
+            struct LLNode * old_list = list;
 		    list = ll_sort(&list);
+            ll_free(&old_list);
 		    print_ll_list(&list);
 		} else{
 		    printf("Invalid input\n");
