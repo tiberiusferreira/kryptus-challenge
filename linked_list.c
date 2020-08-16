@@ -76,3 +76,47 @@ struct LLNode*  ll_last(struct LLNode **linked_list){
     }
     return current;
 }
+
+void ll_remove(struct LLNode **linked_list, unsigned int index){
+    exit_on_invalid_list(linked_list);
+    struct LLNode* current = (*linked_list);
+    if (index == 0){
+        // remove the "root" node
+        if (current){
+            // root node exists
+            struct LLNode * to_be_removed = current;
+            (*linked_list) = current->next;
+            free(to_be_removed);
+            return;
+        }else{
+            // empty linked list
+            printf("Tried removing non-existing node of index: %d", index);
+        }
+    }
+    // index greater than 0
+    for (unsigned int i = 0; ; i++){
+        // get to the node right before the one to be removed, because we need to set his new "next"
+        if (i == index-1){
+            struct LLNode* to_be_deleted = current->next;
+            if (to_be_deleted == 0){
+                printf("Tried removing non-existing node of index: %d", index);
+                return;
+            }
+            struct LLNode* node_after_to_be_deleted = to_be_deleted->next;
+            if (node_after_to_be_deleted != 0){
+                current->next = node_after_to_be_deleted;
+            }else{
+                current->next = 0;
+            }
+            free(to_be_deleted);
+            break;
+        }else{
+            current = current->next;
+        }
+    }
+}
+
+void clear(struct LLNode **linked_list){
+    // dont need to check, if list is already cleared this is basically a no-op
+    *linked_list = 0; // replace with free of the whole linked list!
+}
