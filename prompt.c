@@ -69,7 +69,12 @@ int main() {
         }else if (strncmp(input, "exit\n", 5) == 0) {
 			printf("Leaving. Good bye.\n");
 			break;
-		}else{
+		} else if (strncmp(input, "sort\n", 5) == 0){
+		    // we are LEAKING memory here
+		    // TODO FIX
+		    list = ll_sort(&list);
+		    print_ll_list(&list);
+		} else{
 		    printf("Invalid input\n");
 		}
 	}

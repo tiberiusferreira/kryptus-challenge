@@ -120,3 +120,56 @@ void clear(struct LLNode **linked_list){
     // dont need to check, if list is already cleared this is basically a no-op
     *linked_list = 0; // replace with free of the whole linked list!
 }
+
+
+void insert_value_sorted(struct LLNode** sorted_ll, int new_val){
+    // assumes non empty list, internal use
+    struct LLNode * current = *sorted_ll; // the current node while walking the list
+    struct LLNode * previous_node = 0;    // the previous node while walking the list
+
+    while (current != 0){
+        // find node which is bigger than the value we want to store, then
+        // put value in a node just before that one
+        if (current->val >= new_val){
+            // insert new_val in a new node and put it right before current sorted_ll node
+            struct LLNode * new_node = new_ll_node(new_val);
+            new_node->next = current;
+            if (previous_node != 0){
+                previous_node->next = new_node;
+            }else{
+                // if previous node was 0, it means we are at the first node of the list
+                *sorted_ll = new_node;
+            }
+            return;
+        }
+        previous_node = current;
+        current = current->next;
+    }
+    // if we got here, it means the new_val is bigger than any other value in the list,
+    // put it in the end of it
+    previous_node->next = new_ll_node(new_val);
+}
+
+/*
+ * No time, so we wont do it in place, too complicated.
+ * So we return a copy of the linked list sorted, the returned value is a pointer
+ * to the first Node of the list, or 0 (NULL) if the list is empty
+*/
+struct LLNode* ll_sort(struct LLNode **linked_list){
+    if (*linked_list == 0){
+        // empty list
+        return 0;
+    }
+    struct LLNode * original_current_node = (*linked_list);
+    struct LLNode * sorted_linked_list = new_ll_node(original_current_node->val);
+    original_current_node = original_current_node->next;
+
+    while (original_current_node != 0){
+        // insert original_current_node val into sorted_linked_list
+        insert_value_sorted(&sorted_linked_list, original_current_node->val);
+        original_current_node = original_current_node->next;
+    }
+
+    return sorted_linked_list;
+}
+
