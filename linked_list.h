@@ -12,6 +12,7 @@ struct LLNode{
 
 // Prefixes to avoid name conflict
 void ll_insert(struct LLNode **linked_list, int val);
+// index is zero indexed
 struct LLNode* ll_get(struct LLNode **linked_list, unsigned int index);
 struct LLNode*  ll_first(struct LLNode **linked_list);
 struct LLNode*  ll_last(struct LLNode **linked_list);

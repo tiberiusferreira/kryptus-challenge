@@ -45,3 +45,34 @@ void print_ll_list(struct LLNode **linked_list){
     printf("\n");
 }
 
+// index is zero indexed
+struct LLNode* ll_get(struct LLNode **linked_list, unsigned int index){
+    exit_on_invalid_list(linked_list);
+    struct LLNode * head = *linked_list;
+    struct LLNode * current_node = head;
+    for (unsigned int i = 0; ; i++){
+        if (current_node == 0){
+            return 0;
+        }
+        if (i == index){
+            return current_node;
+        }
+        current_node = current_node->next;
+    }
+}
+
+struct LLNode*  ll_first(struct LLNode **linked_list){
+    exit_on_invalid_list(linked_list);
+    // return first node
+    return (*linked_list);
+}
+
+struct LLNode*  ll_last(struct LLNode **linked_list){
+    exit_on_invalid_list(linked_list);
+    struct LLNode* current = (*linked_list);
+    // walk whole list, until there is "next"
+    while(current->next){
+        current = current->next;
+    }
+    return current;
+}

@@ -39,6 +39,29 @@ int main() {
             print_ll_list(&list);
         }
 
+        if (strncmp(input, "get", 3) == 0) {
+            char *ptr;
+            int val;
+            val = (int) strtol(&input[3], &ptr, 10);
+            if (val <= 0){
+                printf("Cant get element of negative or 0 index");
+                exit(EXIT_FAILURE);
+            }
+            // need to subtract one because we read a value which is 1 indexed
+            struct LLNode * node = ll_get(&list, val-1);
+            printf("%d\n", node->val);
+        }
+
+        if (strncmp(input, "first\n", 6) == 0) {
+            struct LLNode * node = ll_first(&list);
+            printf("%d\n", node->val);
+        }
+
+        if (strncmp(input, "last\n", 5) == 0) {
+            struct LLNode * node = ll_last(&list);
+            printf("%d\n", node->val);
+        }
+
 		if (strncmp(input, "exit\n", 5) == 0) {
 			printf("Leaving. Good bye.\n");
 			break;
